@@ -203,11 +203,12 @@ body::-webkit-scrollbar,
 .bracket-wrapper {
   position: relative;
   display: inline-block;
-  padding: 0;
+  padding: 10px 16px;
 }
 
 .bracket-box {
   position: absolute;
+  padding: 20px;
   top: 0;
   left: 0;
   width: 100%;
