@@ -1,0 +1,23 @@
+[
+  {
+    "company": "Freelance",
+    "role": "Creative Developer",
+    "period": "2022 — Present",
+    "description": "Building interactive web experiences and design systems for startups and agencies. Specializing in motion design, WebGL, and frontend architecture.",
+    "technologies": ["React", "TypeScript", "Three.js", "Next.js", "GSAP", "Figma"]
+  },
+  {
+    "company": "Studio Form",
+    "role": "Frontend Engineer",
+    "period": "2021 — 2022",
+    "description": "Developed responsive web applications with a focus on animation and user experience. Collaborated with designers to implement pixel-perfect interfaces with fluid micro-interactions.",
+    "technologies": ["React", "TypeScript", "Styled Components", "Framer Motion", "Storybook"]
+  },
+  {
+    "company": "Digital Agency Co.",
+    "role": "Junior Developer",
+    "period": "2020 — 2021",
+    "description": "Built and maintained client websites using modern JavaScript frameworks. Participated in daily stand-ups and sprint planning in an agile team environment.",
+    "technologies": ["JavaScript", "React", "SCSS", "WordPress", "Webpack"]
+  }
+]

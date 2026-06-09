@@ -1,0 +1,70 @@
+{
+  "01": {
+    "description": "A lightweight CI/CD library designed for small teams who want automated deployments without the overhead of full-scale DevOps tools. TinyOps handles build pipelines, test automation, and zero-downtime deployments with a minimal configuration surface.",
+    "techStack": ["TypeScript", "Node.js", "Docker", "GitHub Actions", "Shell"],
+    "challenges": [
+      "Designing a pluggable pipeline system that works with any Node project",
+      "Keeping the binary under 5MB while supporting multiple providers",
+      "Writing idempotent deployment scripts that handle rollbacks gracefully"
+    ],
+    "features": [
+      "Declarative YAML pipeline configuration",
+      "Built-in support for Docker, Vercel, and bare-metal deploys",
+      "Automatic rollback on failure",
+      "Slack and Discord notifications",
+      "CLI with real-time pipeline streaming"
+    ],
+    "github": "https://github.com/kenshin/tinyops"
+  },
+  "02": {
+    "description": "A contract management platform that streamlines the entire agreement lifecycle — from drafting and negotiation to signing and renewals. Built for legal teams who need clarity, not complexity.",
+    "techStack": ["React", "TypeScript", "PostgreSQL", "Node.js", "TailwindCSS", "Next.js"],
+    "challenges": [
+      "Building a real-time collaborative editor with version history",
+      "Implementing role-based access control across organizations",
+      "Handling complex nested approval workflows"
+    ],
+    "features": [
+      "Drag-and-drop clause builder",
+      "E-signature integration (DocuSign/HelloSign)",
+      "Automated renewal reminders",
+      "Full audit trail with timestamped changes",
+      "Template library with dynamic variables"
+    ],
+    "github": "https://github.com/kenshin/sync-org"
+  },
+  "03": {
+    "description": "An intelligent color palette generator that uses color theory algorithms to create harmonious palettes from any input image or hex code. Qolors helps designers explore color relationships with real-time preview.",
+    "techStack": ["React", "Three.js", "WebGL", "HSLuv", "JavaScript"],
+    "challenges": [
+      "Implementing accurate color space conversions (RGB ↔ HSLuv ↔ LAB)",
+      "Building a WebGL shader that visualizes palettes in 3D space",
+      "Optimizing real-time palette generation for large images"
+    ],
+    "features": [
+      "Extract palettes from uploaded images",
+      "Color harmony rules (complementary, triadic, analogous)",
+      "3D color space explorer with Three.js",
+      "Export palettes to CSS, Tailwind, Figma, and Adobe Swatch",
+      "Accessibility contrast checker built-in"
+    ],
+    "github": "https://github.com/kenshin/qolors"
+  },
+  "04": {
+    "description": "A documentation platform that turns Markdown into beautiful, searchable documentation sites. Focused on developer experience with instant search, versioned docs, and a powerful theming system.",
+    "techStack": ["React", "TypeScript", "MDX", "TailwindCSS", "Algolia", "Next.js"],
+    "challenges": [
+      "Building a custom MDX parser with enhanced component support",
+      "Implementing versioned documentation without duplicating content",
+      "Designing a theming system that allows full visual customization"
+    ],
+    "features": [
+      "Full-text search with keyboard navigation",
+      "Versioned documentation with diff highlighting",
+      "Custom MDX components (tabs, diagrams, API tables)",
+      "Dark mode with system preference detection",
+      "Automatic table of contents generation"
+    ],
+    "github": "https://github.com/kenshin/softdocs"
+  }
+}
