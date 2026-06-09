@@ -176,7 +176,7 @@ const TestimonialsSection: React.FC<TestimonialsSectionProps> = ({ isVisible, sc
     <div
       id="testimonials"
       data-reveal
-      className="col-span-full py-7 max-md:py-4 border-t border-border overflow-hidden"
+      className="col-span-full py-7 max-md:py-4 border-t border-border"
     >
       <div className="grid max-md:flex max-md:flex-col grid-cols-12">
         <div

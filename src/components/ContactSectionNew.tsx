@@ -104,6 +104,8 @@ const ContactSectionNew: React.FC<ContactSectionNewProps> = ({
                 }}>
                   Let's
                 </span>
+              </div>
+              <div>
                 <BracketBox className='max-md:hidden' onHoverChange={setIsBuildHovered}>
                   <span style={{ 
                     fontSize: 'clamp(2.5rem,6vw,6rem)', 
@@ -127,12 +129,12 @@ const ContactSectionNew: React.FC<ContactSectionNewProps> = ({
                   </span>
                 </BracketBox>
               </div>
-              <span style={{
+              <div style={{
                   transition: 'filter 0.3s ease',
                   filter: isBuildHovered ? 'blur(2px)' : 'blur(0px)',
                 }}>
                   Something.
-                </span>
+                </div>
             </h2>
           </div>
 
