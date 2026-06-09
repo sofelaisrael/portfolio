@@ -104,9 +104,7 @@ const ContactSectionNew: React.FC<ContactSectionNewProps> = ({
                 }}>
                   Let's
                 </span>
-              </div>
-              <div>
-                <BracketBox className='max-md:hidden' onHoverChange={setIsBuildHovered}>
+                <BracketBox className='max-md:hidden inline' onHoverChange={setIsBuildHovered}>
                   <span style={{ 
                     fontSize: 'clamp(2.5rem,6vw,6rem)', 
                     fontWeight: 900, 
@@ -117,7 +115,7 @@ const ContactSectionNew: React.FC<ContactSectionNewProps> = ({
                     {renderKineticText("BUILD")}
                   </span>
                 </BracketBox>
-                <BracketBox className='md:hidden' onHoverChange={setIsBuildHovered}>
+                <BracketBox className='md:hidden inline' onHoverChange={setIsBuildHovered}>
                   <span style={{ 
                     fontSize: 'clamp(2.5rem,6vw,6rem)', 
                     fontWeight: 900, 
@@ -129,12 +127,12 @@ const ContactSectionNew: React.FC<ContactSectionNewProps> = ({
                   </span>
                 </BracketBox>
               </div>
-              <div style={{
+              <span style={{
                   transition: 'filter 0.3s ease',
                   filter: isBuildHovered ? 'blur(2px)' : 'blur(0px)',
                 }}>
                   Something.
-                </div>
+                </span>
             </h2>
           </div>
 

@@ -192,15 +192,18 @@ body::-webkit-scrollbar,
 
 
 .focus-text {
-  font-family: 'Helvetica Neue', Arial, sans-serif;
-  font-size: 4rem;
+  font-family: 'JetBrains Mono', monospace;
   font-weight: 700;
-  color: #FFFFFF;
   background: transparent;
   border: none;
   outline: none;
-  text-align: center;
   transition: all 0.2s ease;
+}
+
+.bracket-wrapper {
+  position: relative;
+  display: inline-block;
+  padding: 0;
 }
 
 .bracket-box {
