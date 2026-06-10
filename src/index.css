@@ -463,3 +463,13 @@ input:focus-visible {
   outline: 1.5px solid hsl(var(--void));
   outline-offset: 0;
 }
+
+@media (max-width: 768px) {
+  .grid-cols-1 {
+    grid-template-columns: 1fr !important;
+  }
+
+  .max-md\:flex-row {
+    flex-direction: row !important;
+  }
+}

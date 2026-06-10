@@ -81,7 +81,15 @@ const FooterSection: React.FC<FooterSectionProps> = ({ scrollTo, setCursorHovere
         <div className='flex items-start justify-center max-md:hidden font-mono -z-1' style={{
           gridColumn: '1 / -1',
           backgroundColor: 'hsl(var(--surface))',
+          position: 'relative',
         }}>
+          <svg width="0" height="0" aria-hidden="true">
+            <defs>
+              <clipPath id="pinch" clipPathUnits="objectBoundingBox">
+                <path d="M0,0 Q0.5,0.25 1,0 L1,1 Q0.5,0.75 0,1 Z" />
+              </clipPath>
+            </defs>
+          </svg>
           <h1 className=''
             ref={osmoTextRef}
             style={{
@@ -93,6 +101,7 @@ const FooterSection: React.FC<FooterSectionProps> = ({ scrollTo, setCursorHovere
               lineHeight: 1,
               letterSpacing: '-0.11em',
               fontFamily: "'monospace', -apple-system, sans-serif",
+              clipPath: 'url(#pinch)',
             }}
           >
           </h1>

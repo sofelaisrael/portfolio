@@ -99,6 +99,24 @@ const GateOverlay: React.FC<GateOverlayProps> = ({
                 zIndex: gatePhase !== 'idle' ? 1002 : 'auto',
               }}
             />
+            <span
+              style={{
+                position: 'fixed',
+                top: 'calc(50% - 10px)',
+                left: 'calc(50% + 95px)',
+                fontFamily: "'JetBrains Mono', monospace",
+                fontSize: 'clamp(0.45rem, 0.65vw, 0.6rem)',
+                color: 'hsl(var(--void))',
+                opacity: gatePhase === 'idle' ? 0.3 : 0,
+                transition: 'opacity 1s ease',
+                letterSpacing: '0.1em',
+                textTransform: 'uppercase',
+                pointerEvents: 'none',
+                whiteSpace: 'nowrap',
+              }}
+            >
+              [ click to enter ]
+            </span>
           </div>
         </div>
       )}

@@ -30,7 +30,7 @@ const WorksSection: React.FC<WorksSectionProps> = ({
       <div className='grid max-md:flex flex-col' style={{ gridTemplateColumns: 'repeat(12, 1fr)', gap: '2vw' }}>
         <div
           data-reveal
-          className="text-mono md:sticky py-10 top-10 h-[20px]"
+          className="text-mono md:sticky py-10 top-10 h-[20px] max-md:pb-4 max-md:pt-6"
           style={{
             gridColumn: '1 / 4',
             alignSelf: 'start',
@@ -42,15 +42,15 @@ const WorksSection: React.FC<WorksSectionProps> = ({
           [ INDEX / SELECTED WORKS ]
         </div>
 
-        <ul style={{ gridColumn: '4 / -1', listStyle: 'none', borderTop: '1px solid hsl(var(--border-color))' }}>
+        <ul className="max-md:px-0" style={{ gridColumn: '4 / -1', listStyle: 'none', borderTop: '1px solid hsl(var(--border-color))' }}>
           {projects.map((project, index) => (
             <li
               key={project.id}
               onMouseEnter={() => handleItemMouseEnter(project)}
               onMouseLeave={handleItemMouseLeave}
-              className='md:grid-cols-[1fr,5fr,1fr,1fr]'
               style={{
                 display: 'grid',
+                gridTemplateColumns: '40px 1fr 80px 60px',
                 alignItems: 'baseline', padding: '3vw 0',
                 borderBottom: '1px solid hsl(var(--border-color))',
                 position: 'relative',
@@ -67,9 +67,9 @@ const WorksSection: React.FC<WorksSectionProps> = ({
                   color: 'inherit', textDecoration: 'none',
                 }}
               >
-              <span className="text-mono">{project.id}</span>
-              <span className='text-[clamp(2vw,3vw,4vw)] max-md:text-[clamp(2vw,7vw,7vw)]' style={{
-                fontSize: 'clamp(2rem, 10, 4rem)', fontWeight: 700,
+              <span className="text-mono max-md:text-[10px]">{project.id}</span>
+              <span style={{
+                fontSize: 'clamp(1.2rem, 3vw, 4rem)', fontWeight: 700,
                 letterSpacing: '-0.02em', textTransform: 'uppercase',
                 transition: 'transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), color 0.4s ease',
                 fontFamily: "'Inter', -apple-system, sans-serif",
@@ -78,8 +78,8 @@ const WorksSection: React.FC<WorksSectionProps> = ({
               }}>
                 {project.title}
               </span>
-              <span className="text-mono max-md:text-[6px] max-md:absolute bottom-2 right-6" style={{ textAlign: 'right' }}>{project.role}</span>
-              <span className="text-mono max-md:text-[6px] max-md:absolute bottom-2 right-0" style={{ textAlign: 'right' }}>{project.year}</span>
+              <span className="text-mono max-md:text-[8px]" style={{ textAlign: 'right' }}>{project.role}</span>
+              <span className="text-mono max-md:text-[8px]" style={{ textAlign: 'right' }}>{project.year}</span>
             </Link>
             </li>
           ))}

@@ -78,7 +78,7 @@ const ProjectDetail: React.FC = () => {
           gap: '4vw', marginBottom: '6vw',
           borderBottom: '1px solid hsl(var(--border-color))',
           paddingBottom: '4vw',
-        }}>
+        }} className='grid-cols-1'>
           <div>
             <span className="text-mono" style={{ marginBottom: 8, display: 'block' }}>{project.id} / {project.year}</span>
             <h1 style={{
@@ -93,7 +93,7 @@ const ProjectDetail: React.FC = () => {
             <p className="text-mono" style={{ marginTop: 8 }}>{project.role}</p>
           </div>
 
-          <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', alignItems: 'flex-end', gap: 12 }}>
+          <div className='max-md:flex-row' style={{ display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', alignItems: 'flex-end', gap: 12 }}>
             <a
               href={project.link}
               target="_blank"
@@ -179,7 +179,7 @@ const ProjectDetail: React.FC = () => {
 
         <section style={{ marginBottom: '6vw' }}>
           <span className="text-mono" style={{ marginBottom: 16, display: 'block' }}>FEATURES</span>
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
+          <div className='grid-cols-1' style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
             {details.features.map((f, i) => (
               <div key={i} style={{
                 padding: '16px 20px',
