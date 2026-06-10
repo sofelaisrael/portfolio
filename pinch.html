@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pinch Warp Text</title>
+  <style>
+    body {
+      margin: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      background: #fff;
+    }
+    canvas {
+      display: block;
+      max-width: 100%;
+    }
+  </style>
+</head>
+<body>
+<canvas id="c"></canvas>
+<script>
+  const canvas = document.getElementById('c');
+  const ctx = canvas.getContext('2d');
+  const W = 680, H = 220;
+  canvas.width = W;
+  canvas.height = H;
+
+  // --- config ---
+  const TEXT = 'KENSHIN';
+  const FONT = '900 130px Inter, Arial Black, sans-serif';
+  const PINCH = 28; // how much the middle is pinched (px). increase for more drama
+  // --------------
+
+  // render text to offscreen canvas
+  const off = document.createElement('canvas');
+  off.width = W; off.height = H;
+  const offCtx = off.getContext('2d');
+  offCtx.font = FONT;
+  offCtx.fillStyle = '#000';
+  offCtx.textAlign = 'center';
+  offCtx.textBaseline = 'middle';
+  offCtx.fillText(TEXT, W / 2, H / 2);
+
+  const src = offCtx.getImageData(0, 0, W, H);
+  const dst = ctx.createImageData(W, H);
+
+  const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  const textColor = isDark ? [255, 255, 255] : [15, 15, 15];
+  const guideColor = isDark ? [120, 120, 120] : [160, 160, 160];
+
+  // pixel-level vertical warp
+  for (let dx = 0; dx < W; dx++) {
+    const t = dx / W;
+    const bow = 4 * t * (1 - t); // peaks at center
+    const topY = PINCH * bow;
+    const botY = H - PINCH * bow;
+    const sliceH = botY - topY;
+
+    for (let dy = 0; dy < H; dy++) {
+      const srcY = Math.round(((dy - topY) / sliceH) * H);
+      if (srcY < 0 || srcY >= H) continue;
+
+      const si = (srcY * W + dx) * 4;
+      const di = (dy * W + dx) * 4;
+      const alpha = src.data[si + 3];
+      if (alpha > 10) {
+        dst.data[di]     = textColor[0];
+        dst.data[di + 1] = textColor[1];
+        dst.data[di + 2] = textColor[2];
+        dst.data[di + 3] = alpha;
+      }
+    }
+  }
+
+  ctx.putImageData(dst, 0, 0);
+
+  // guide curves
+  ctx.strokeStyle = `rgba(${guideColor.join(',')}, 0.6)`;
+  ctx.lineWidth = 1;
+  ctx.setLineDash([4, 5]);
+
+  ctx.beginPath();
+  ctx.moveTo(20, 0);
+  ctx.quadraticCurveTo(W / 2, PINCH, W - 20, 0);
+  ctx.stroke();
+
+  ctx.beginPath();
+  ctx.moveTo(20, H);
+  ctx.quadraticCurveTo(W / 2, H - PINCH, W - 20, H);
+  ctx.stroke();
+</script>
+</body>
+</html>
