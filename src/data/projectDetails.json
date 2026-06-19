@@ -14,7 +14,7 @@
       "Slack and Discord notifications",
       "CLI with real-time pipeline streaming"
     ],
-    "github": "https://github.com/kenshin/tinyops"
+    "github": "https://github.com/syntax-devv/tinyops"
   },
   "02": {
     "description": "A contract management platform that streamlines the entire agreement lifecycle — from drafting and negotiation to signing and renewals. Built for legal teams who need clarity, not complexity.",
@@ -31,7 +31,7 @@
       "Full audit trail with timestamped changes",
       "Template library with dynamic variables"
     ],
-    "github": "https://github.com/kenshin/sync-org"
+    "github": "https://github.com/josh-devv/sync-org"
   },
   "03": {
     "description": "An intelligent color palette generator that uses color theory algorithms to create harmonious palettes from any input image or hex code. Qolors helps designers explore color relationships with real-time preview.",
@@ -48,7 +48,7 @@
       "Export palettes to CSS, Tailwind, Figma, and Adobe Swatch",
       "Accessibility contrast checker built-in"
     ],
-    "github": "https://github.com/kenshin/qolors"
+    "github": "https://github.com/syntax-devv/qolors"
   },
   "04": {
     "description": "A documentation platform that turns Markdown into beautiful, searchable documentation sites. Focused on developer experience with instant search, versioned docs, and a powerful theming system.",
@@ -65,6 +65,6 @@
       "Dark mode with system preference detection",
       "Automatic table of contents generation"
     ],
-    "github": "https://github.com/kenshin/softdocs"
+    "github": "https://github.com/sofelaisrael/softdocs"
   }
 }

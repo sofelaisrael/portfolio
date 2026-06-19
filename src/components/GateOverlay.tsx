@@ -28,7 +28,7 @@ const GateOverlay: React.FC<GateOverlayProps> = ({
         <div style={{
           position: 'fixed', top: 0, left: 0, width: '100vw', height: '100vh',
           zIndex: 1000, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
-          backgroundColor: 'hsl(var(--surface))',
+          backgroundColor: 'hsl(var(--surface))', gap: '4px',
           pointerEvents: appState === 'locked' ? 'auto' : 'none',
         }}>
 
@@ -82,7 +82,7 @@ const GateOverlay: React.FC<GateOverlayProps> = ({
             <div
               style={{
                 width: gatePhase !== 'idle' ? '100vw' : (keyHovered ? 160 : 140),
-                height: (gatePhase === 'expand-h' || gatePhase === 'slide-up') ? '110vh' : 16,
+                height: (gatePhase === 'expand-h' || gatePhase === 'slide-up') ? '110vh' : 4,
                 backgroundColor: 'hsl(var(--void))',
                 position: 'fixed',
                 top: 'auto',

@@ -1,8 +1,9 @@
-import React, { useEffect, useRef } from 'react';
+import React from 'react';
 import { Download } from 'lucide-react';
 import coffee from '@/assets/icons/coffee-icon.svg'
 import ThemeToggle from '@/components/ThemeToggle';
 import resume from '@/assets/resume.pdf';
+import { useFooterReveal } from '@/hooks/useFooterReveal';
 
 interface FooterSectionProps {
   scrollTo: (id: string) => void;
@@ -10,68 +11,7 @@ interface FooterSectionProps {
 }
 
 const FooterSection: React.FC<FooterSectionProps> = ({ scrollTo, setCursorHovered }) => {
-  const osmoTextRef = useRef<HTMLHeadingElement>(null);
-
-  useEffect(() => {
-    const loadGSAP = async () => {
-      try {
-        const gsap = await import('gsap');
-        const ScrollTrigger = await import('gsap/dist/ScrollTrigger');
-
-        gsap.default.registerPlugin(ScrollTrigger.default);
-
-        const textElement = osmoTextRef.current;
-        if (!textElement) return;
-
-        const text = 'KENSHIN';
-        textElement.innerHTML = '';
-
-
-        text.split('').forEach(char => {
-          const span = document.createElement('span');
-          span.innerText = char;
-          span.style.display = 'inline-block';
-                          span.style.transformOrigin = 'center 5000px';
-          span.style.willChange = 'transform';
-          textElement.appendChild(span);
-        });
-
-        const chars = textElement.querySelectorAll('span');
-        const middleIndex = Math.floor(chars.length / 2);
-
-        gsap.default.set(chars, {
-          rotationZ: (index) => {
-            const distFromCenter = index - middleIndex;
-            return distFromCenter * 1;
-          },
-        });
-
-        gsap.default.to(chars, {
-          scrollTrigger: {
-            trigger: osmoTextRef.current,
-            start: 'top 85%',
-            end: 'bottom 110%',
-            scrub: 1,
-          },
-          rotationZ: 0,
-          opacity: 1,
-          ease: 'none',
-          stagger: {
-            amount: 0.8,
-            from: 'center'
-          }
-        });
-
-        return () => {
-          ScrollTrigger.default.getAll().forEach(trigger => trigger.kill());
-        };
-      } catch (error) {
-        console.warn('GSAP not available, animation disabled');
-      }
-    };
-
-    loadGSAP();
-  }, []);
+  const osmoTextRef = useFooterReveal();
 
   return (
     <>

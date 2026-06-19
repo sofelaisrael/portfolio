@@ -22,11 +22,12 @@ const ProjectDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const { cursorHovered, setCursorHovered, cursorPos } = useCustomCursor();
-  useLenis();
+  const { scrollToTop } = useLenis();
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
     setVisible(true);
+    scrollToTop();
   }, []);
 
   const project = projects.find(p => p.id === id);

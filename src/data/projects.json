@@ -2,5 +2,5 @@
   { "id": "01", "title": "TinyOps", "role": "CI/CD Library", "year": "2026", "img": "/images/projects/01-tinyops.png", "link": "https://tinyops.vercel.app" },
   { "id": "02", "title": "SYNC_ORG", "role": "Contract Management", "year": "2026", "img": "/images/projects/02-syncorg.png", "link": "https://sync-org.vercel.app" },
   { "id": "03", "title": "Qolors", "role": "Palette Generator", "year": "2025", "img": "/images/projects/03-qolors.png", "link": "https://qolors.vercel.app" },
-  { "id": "04", "title": "SoftDocs", "role": "Documentation", "year": "2024", "img": "/images/projects/04-softdocs.png", "link": "https://softnotez.vercel.app" }
+  { "id": "04", "title": "SoftDocs", "role": "Documentation", "year": "2024", "img": "/images/projects/04-softdocs.png", "link": "https://softdox.vercel.app" }
 ]

@@ -230,8 +230,8 @@ const ContactSectionNew: React.FC<ContactSectionNewProps> = ({
 
               <div style={{ display: 'flex', gap: '2rem' }}>
                 {[
-                  { label: 'GITHUB', href: 'https://github.com/kenshin' },
-                  { label: 'TWITTER', href: 'https://twitter.com/ken_sh_in' },
+                  { label: 'GITHUB', href: 'https://github.com/syntax-devv' },
+                  { label: 'TWITTER', href: 'https://twitter.com/@Sofelaa1' },
                 ].map((link) => (
                   <a
                     key={link.label}
