@@ -385,7 +385,7 @@ export function SkillsShowcase({ setCursorHovered }: SkillsShowcaseProps) {
           }
           .skill-row {
             grid-template-columns: 70px 1fr 60px;
-            gap: 0.5rem;
+            gap: 1.25rem;
           }
           .skill-row-id {
             display: none;
