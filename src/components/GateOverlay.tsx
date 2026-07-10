@@ -24,6 +24,16 @@ const GateOverlay: React.FC<GateOverlayProps> = ({
 
   return (
     <>
+      <style>{`
+        @media (max-width: 768px) {
+          .gate-enter-text {
+            top: calc(50% + 20px) !important;
+            left: 50% !important;
+            transform: translateX(-50%);
+            font-size: 0.5rem !important;
+          }
+        }
+      `}</style>
       {gatePhase !== 'done' && (
         <div style={{
           position: 'fixed', top: 0, left: 0, width: '100vw', height: '100vh',
@@ -114,6 +124,7 @@ const GateOverlay: React.FC<GateOverlayProps> = ({
                 pointerEvents: 'none',
                 whiteSpace: 'nowrap',
               }}
+              className="gate-enter-text"
             >
               [ click to enter ]
             </span>

@@ -14,7 +14,7 @@
       "Slack and Discord notifications",
       "CLI with real-time pipeline streaming"
     ],
-    "github": "https://github.com/syntax-devv/tinyops"
+    "github": "https://github.com/sofelaisrael/tinyops"
   },
   "02": {
     "description": "A contract management platform that streamlines the entire agreement lifecycle — from drafting and negotiation to signing and renewals. Built for legal teams who need clarity, not complexity.",
@@ -48,7 +48,7 @@
       "Export palettes to CSS, Tailwind, Figma, and Adobe Swatch",
       "Accessibility contrast checker built-in"
     ],
-    "github": "https://github.com/syntax-devv/qolors"
+    "github": "https://github.com/sofelaisrael/qolors"
   },
   "04": {
     "description": "A documentation platform that turns Markdown into beautiful, searchable documentation sites. Focused on developer experience with instant search, versioned docs, and a powerful theming system.",

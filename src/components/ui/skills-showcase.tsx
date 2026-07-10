@@ -396,6 +396,14 @@ export function SkillsShowcase({ setCursorHovered }: SkillsShowcaseProps) {
             height: 160px;
             order: -1;
           }
+          .skill-tabs-scroll {
+            flex-wrap: nowrap;
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+          }
+          .skill-tabs-scroll::-webkit-scrollbar {
+            display: none;
+          }
         }
       `}</style>
 
@@ -433,11 +441,13 @@ export function SkillsShowcase({ setCursorHovered }: SkillsShowcaseProps) {
         </div>
 
         {/* Category tabs */}
-        <div style={{
+        <div className="skill-tabs-scroll" style={{
           display: 'flex',
           gap: '0',
           marginBottom: '1.5rem',
           borderBottom: '1px solid hsl(var(--border))',
+          overflowX: 'auto',
+          WebkitOverflowScrolling: 'touch',
         }}>
           {categories.map((category) => (
             <button
