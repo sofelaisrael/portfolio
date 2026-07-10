@@ -330,221 +330,340 @@ export function SkillsShowcase({ setCursorHovered }: SkillsShowcaseProps) {
   }
 
   return (
-    <section className="content w-full">
-      <div className="md:mb-[2rem] " style={{
-        display: 'flex',
-        gap: '0.5rem',
-        justifyContent: 'flex-end',
-        flexWrap: 'wrap'
-      }}>
-        {categories.map((category) => (
-          <button className="interactive-link text-extrabold"
-            key={category.id}
-            onClick={() => setActiveCategory(category.id)}
-            onMouseEnter={() => setCursorHovered(true)}
-            onMouseLeave={() => setCursorHovered(false)}
-            style={{
-              padding: '0.25rem 0.75rem',
-              border: 'none',
-              borderRadius: '0.25rem',
-              cursor: 'none',
-              transition: 'all 0.2s ease',
-              fontSize: '0.75rem',
-              fontFamily: 'monospace',
-              fontWeight: 900,
-              opacity: activeCategory === category.id ? 1 : 0.4
-            }}
-          >
-            {category.name}
-          </button>
-        ))}
-      </div>
+    <section className="content w-full" style={{ position: 'relative', overflow: 'hidden' }}>
+      {/* Grid overlay */}
+      <div style={{
+        position: 'absolute',
+        inset: 0,
+        backgroundImage: `
+          linear-gradient(hsl(var(--border)) 1px, transparent 1px),
+          linear-gradient(90deg, hsl(var(--border)) 1px, transparent 1px)
+        `,
+        backgroundSize: '40px 40px',
+        opacity: 0.15,
+        pointerEvents: 'none',
+        zIndex: 0,
+      }} />
 
-      <div className="skill-matrix" style={{
-        display: 'grid',
-        gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-        gap: '1.5rem',
-        padding: '2rem 0'
-      }}>
-        {currentSkills.map((skill, index) => (
-          <div
-            key={skill.id}
-            className="skill-item"
-            onMouseEnter={() => {
-              setHoveredSkill(skill.id)
-              setCursorHovered(true)
-            }}
-            onMouseLeave={() => {
-              setHoveredSkill(null)
-              setCursorHovered(false)
-            }}
-            style={{
-              opacity: 1,
-              transition: 'all 0.8s cubic-bezier(0.16, 1, 0.3, 1)',
-              padding: '1rem',
-              border: '1px solid hsl(var(--border))',
-              borderRadius: '0.5rem',
-              backgroundColor: hoveredSkill === skill.id ? 'hsl(var(--surface)/0.05)' : 'transparent',
-              cursor: 'none',
-              position: 'relative',
-              height: '140px',
-              display: 'flex',
-              flexDirection: 'column'
-            }}
-          >
-            <div style={{
-              position: 'relative',
-              height: '100%',
-              overflow: 'hidden'
-            }}>
-              <div style={{
-                position: 'absolute',
-                top: 0,
-                left: 0,
-                right: 0,
-                bottom: 0,
-                transform: hoveredSkill === skill.id ? 'translateY(-100%)' : 'translateY(0)',
-                transition: 'transform 0.4s cubic-bezier(0.16, 1, 0.3, 1)',
-                display: 'flex',
-                flexDirection: 'column'
-              }}>
-                <div className="skill-meta" style={{
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  marginBottom: '0.5rem',
-                  fontSize: '0.75rem',
-                  fontFamily: 'monospace',
-                  opacity: 0.7
+      {/* Scanline */}
+      <div style={{
+        position: 'absolute',
+        inset: 0,
+        backgroundImage: 'repeating-linear-gradient(0deg, transparent, transparent 2px, hsl(var(--foreground) / 0.03) 2px, hsl(var(--foreground) / 0.03) 4px)',
+        pointerEvents: 'none',
+        zIndex: 1,
+        animation: 'scanline-scroll 8s linear infinite',
+      }} />
+
+      <style>{`
+        @keyframes scanline-scroll {
+          0% { transform: translateY(0); }
+          100% { transform: translateY(40px); }
+        }
+        @keyframes cursor-blink {
+          0%, 100% { opacity: 1; }
+          50% { opacity: 0; }
+        }
+        @keyframes crt-flicker {
+          0% { opacity: 0.97; }
+          5% { opacity: 0.95; }
+          10% { opacity: 0.98; }
+          15% { opacity: 0.96; }
+          20% { opacity: 0.99; }
+          100% { opacity: 0.98; }
+        }
+        @keyframes viz-pulse {
+          0%, 100% { opacity: 0.6; }
+          50% { opacity: 1; }
+        }
+        .skills-main-grid {
+          display: grid;
+          grid-template-columns: 1fr 200px;
+          gap: 1.5rem;
+          align-items: start;
+        }
+        .skill-row {
+          display: grid;
+          grid-template-columns: 90px 1fr 100px;
+          gap: 1rem;
+          align-items: center;
+        }
+        .skill-row-id {
+          display: block;
+        }
+        .skill-viz-box {
+          position: sticky;
+          top: 10px;
+          width: 200px;
+          height: 200px;
+        }
+        @media (max-width: 768px) {
+          .skills-main-grid {
+            grid-template-columns: 1fr;
+          }
+          .skill-row {
+            grid-template-columns: 70px 1fr 60px;
+            gap: 0.5rem;
+          }
+          .skill-row-id {
+            display: none;
+          }
+          .skill-viz-box {
+            position: static;
+            width: 100%;
+            height: 160px;
+            order: -1;
+          }
+        }
+      `}</style>
+
+      <div style={{ position: 'relative', zIndex: 2 }}>
+        {/* Status readout header */}
+        <div style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          flexWrap: 'wrap',
+          gap: '1rem',
+          marginBottom: '1.5rem',
+          padding: '0.75rem 0',
+          borderBottom: '1px solid hsl(var(--border))',
+        }}>
+          <div style={{
+            fontFamily: "'JetBrains Mono', monospace",
+            fontSize: '0.65rem',
+            letterSpacing: '0.15em',
+            color: 'hsl(var(--text-muted))',
+            lineHeight: 1.8,
+          }}>
+            <div>ARCHIVE: SKILL_MATRIX</div>
+            <div>SERIE 2 / NO. 096</div>
+          </div>
+          <div style={{
+            fontFamily: "'JetBrains Mono', monospace",
+            fontSize: '0.65rem',
+            letterSpacing: '0.15em',
+            color: 'hsl(var(--text-muted))',
+            lineHeight: 1.8,
+            textAlign: 'right',
+          }}>
+            <div>COMPILER_READY: <span style={{ color: 'hsl(var(--foreground))' }}>TRUE</span></div>
+            <div>CLOCK_SPEED: <span style={{ color: 'hsl(var(--foreground))' }}>4.2GHZ</span></div>
+          </div>
+        </div>
+
+        {/* Category tabs */}
+        <div style={{
+          display: 'flex',
+          gap: '0',
+          marginBottom: '1.5rem',
+          borderBottom: '1px solid hsl(var(--border))',
+        }}>
+          {categories.map((category) => (
+            <button
+              key={category.id}
+              onClick={() => setActiveCategory(category.id)}
+              onMouseEnter={() => setCursorHovered(true)}
+              onMouseLeave={() => setCursorHovered(false)}
+              style={{
+                padding: '0.5rem 1rem',
+                border: 'none',
+                borderRight: '1px solid hsl(var(--border))',
+                borderRadius: 0,
+                cursor: 'none',
+                transition: 'all 0.15s ease',
+                fontSize: '0.65rem',
+                fontFamily: "'JetBrains Mono', monospace",
+                fontWeight: 700,
+                letterSpacing: '0.1em',
+                backgroundColor: activeCategory === category.id ? 'hsl(var(--foreground))' : 'transparent',
+                color: activeCategory === category.id ? 'hsl(var(--background))' : 'hsl(var(--text-muted))',
+              }}
+            >
+              {`> ${category.name}`}
+            </button>
+          ))}
+          <div style={{
+            padding: '0.5rem 0.75rem',
+            fontFamily: "'JetBrains Mono', monospace",
+            fontSize: '0.65rem',
+            color: 'hsl(var(--text-muted))',
+            display: 'flex',
+            alignItems: 'center',
+            animation: 'cursor-blink 1s step-end infinite',
+          }}>
+            _
+          </div>
+        </div>
+
+        {/* Main content: skill list + viz box */}
+        <div className="skills-main-grid">
+          {/* Skill list */}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '0' }}>
+            {currentSkills.map((skill) => (
+              <div
+                key={skill.id}
+                className="skill-row"
+                onMouseEnter={() => {
+                  setHoveredSkill(skill.id)
+                  setCursorHovered(true)
+                }}
+                onMouseLeave={() => {
+                  setHoveredSkill(null)
+                  setCursorHovered(false)
+                }}
+                style={{
+                  padding: '0.75rem 0.5rem',
+                  borderBottom: '1px solid hsl(var(--border) / 0.3)',
+                  cursor: 'none',
+                  backgroundColor: hoveredSkill === skill.id ? 'hsl(var(--foreground) / 0.04)' : 'transparent',
+                  transition: 'background-color 0.2s ease',
+                }}
+              >
+                <div className="skill-row-id" style={{
+                  fontFamily: "'JetBrains Mono', monospace",
+                  fontSize: '0.6rem',
+                  color: 'hsl(var(--text-muted))',
+                  opacity: 0.6,
                 }}>
-                  <span>[{skill.id}]</span>
-                  <span>{skill.meta}</span>
+                  [{skill.id}]
                 </div>
 
-                <h3 className="skill-name" style={{
+                <div style={{
                   display: 'flex',
                   alignItems: 'center',
                   gap: '0.75rem',
-                  fontSize: '20px',
-                  fontWeight: 600,
-                  margin: '0 0 1rem 0',
-                  color: 'hsl(var(--foreground))'
                 }}>
                   <StackIcon name={skill.icon} variant="grayscale"
                     style={{
-                      width: '30px',
+                      width: '20px',
+                      height: '20px',
                       filter: theme === 'dark' ? 'invert(1)' : 'none',
                     }} />
-                  {skill.name}
-                </h3>
-
-                <div className="skill-tags" style={{
-                  display: 'flex',
-                  flexWrap: 'wrap',
-                  gap: '0.5rem',
-                  marginBottom: '1rem'
-                }}>
-                  {skill.tags.map((tag, tagIndex) => (
-                    <span
-                      key={tagIndex}
-                      className="tag"
-                      style={{
-                        padding: '0.2rem 0.4rem',
-                        backgroundColor: hoveredSkill === skill.id ? 'hsl(var(--accent))' : 'hsl(var(--muted))',
-                        color: hoveredSkill === skill.id ? 'hsl(var(--accent-foreground))' : 'hsl(var(--muted-foreground))',
-                        borderRadius: '0.25rem',
-                        fontSize: '0.65rem',
-                        fontFamily: 'monospace',
-                        transition: 'all 0.3s ease'
-                      }}
-                    >
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-              </div>
-
-              <div style={{
-                position: 'absolute',
-                top: 0,
-                left: 0,
-                right: 0,
-                bottom: 0,
-                transform: hoveredSkill === skill.id ? 'translateY(0)' : 'translateY(100%)',
-                transition: 'transform 0.4s cubic-bezier(0.16, 1, 0.3, 1)',
-                display: 'flex',
-                flexDirection: 'column',
-                justifyContent: 'center',
-                alignItems: 'center',
-                padding: '1rem'
-              }}>
-                <div style={{
-                  fontSize: '2rem',
-                  fontFamily: 'monospace',
-                  fontWeight: 700,
-                  color: 'hsl(var(--foreground))',
-                  marginBottom: '1rem'
-                }}>
-                  {getDisplayValue(skill.id, skill.level)}%
+                  <span style={{
+                    fontFamily: "'JetBrains Mono', monospace",
+                    fontSize: '0.8rem',
+                    fontWeight: 600,
+                    color: 'hsl(var(--foreground))',
+                    letterSpacing: '0.02em',
+                  }}>
+                    {skill.name}
+                  </span>
                 </div>
 
-                <div className="flx items-center gap-1 w-full">
-                  <div
-                    className="skill-line"
-                    style={{
-                      height: '2px',
-                      background: 'hsl(var(--border))',
-                      borderRadius: '1px',
-                      overflow: 'hidden',
-                      position: 'relative',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'space-between',
-                      width: '100%'
-                    }}
-                  >
-                    <div
-                      style={{
-                        height: '100%',
-                        zIndex: 1000,
-                        background: `hsl(var(--void))`,
-                        borderRadius: '1px',
-                        width: hoveredSkill === skill.id ? `${skill.level}%` : '0%',
-                        transition: 'width 0.8s cubic-bezier(0.16, 1, 0.3, 1)',
-                        position: 'relative',
-                        overflow: 'hidden'
-                      }}
-                    >
-                      <div
-                        style={{
-                          position: 'absolute',
-                          top: 0,
-                          left: 0,
-                          right: 0,
-                          bottom: 0,
-                          background: 'linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.3) 50%, transparent 100%)',
-                          transform: hoveredSkill === skill.id ? 'translateX(100%)' : 'translateX(-100%)',
-                          transition: 'transform 0.6s ease-out',
-                          transitionDelay: hoveredSkill === skill.id ? '0.3s' : '0s'
-                        }}
-                      />
-                    </div>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                  <div style={{
+                    flex: 1,
+                    height: '2px',
+                    backgroundColor: 'hsl(var(--border))',
+                    position: 'relative',
+                    overflow: 'hidden',
+                  }}>
+                    <div style={{
+                      height: '100%',
+                      backgroundColor: 'hsl(var(--foreground))',
+                      width: `${skill.level}%`,
+                      transition: 'width 0.8s cubic-bezier(0.16, 1, 0.3, 1)',
+                      boxShadow: hoveredSkill === skill.id ? '0 0 6px hsl(var(--foreground) / 0.5)' : 'none',
+                    }} />
                   </div>
-                </div>
-
-                <div style={{
-                  fontSize: '0.75rem',
-                  fontFamily: 'monospace',
-                  color: 'hsl(var(--muted-foreground))',
-                  marginTop: '0.5rem',
-                  textAlign: 'center'
-                }}>
-                  Proficiency Level
+                  <span style={{
+                    fontFamily: "'JetBrains Mono', monospace",
+                    fontSize: '0.6rem',
+                    color: 'hsl(var(--text-muted))',
+                    minWidth: '28px',
+                    textAlign: 'right',
+                  }}>
+                    {hoveredSkill === skill.id ? getDisplayValue(skill.id, skill.level) : skill.level}%
+                  </span>
                 </div>
               </div>
-            </div>
-
+            ))}
           </div>
-        ))}
+
+          {/* Viz box */}
+          <div className="skill-viz-box" style={{
+            border: '1px solid hsl(var(--border))',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+            transition: 'all 0.3s cubic-bezier(0.16, 1, 0.3, 1)',
+            backgroundColor: hoveredSkill ? 'hsl(var(--foreground) / 0.02)' : 'transparent',
+          }}>
+            {/* Corner markers */}
+            <svg style={{ position: 'absolute', top: -1, left: -1, width: 16, height: 16, pointerEvents: 'none' }}>
+              <path d="M0 16 L0 0 L16 0" fill="none" stroke="hsl(var(--foreground))" strokeWidth="1" opacity="0.5" />
+            </svg>
+            <svg style={{ position: 'absolute', top: -1, right: -1, width: 16, height: 16, pointerEvents: 'none' }}>
+              <path d="M0 0 L16 0 L16 16" fill="none" stroke="hsl(var(--foreground))" strokeWidth="1" opacity="0.5" />
+            </svg>
+            <svg style={{ position: 'absolute', bottom: -1, left: -1, width: 16, height: 16, pointerEvents: 'none' }}>
+              <path d="M0 0 L0 16 L16 16" fill="none" stroke="hsl(var(--foreground))" strokeWidth="1" opacity="0.5" />
+            </svg>
+            <svg style={{ position: 'absolute', bottom: -1, right: -1, width: 16, height: 16, pointerEvents: 'none' }}>
+              <path d="M16 0 L16 16 L0 16" fill="none" stroke="hsl(var(--foreground))" strokeWidth="1" opacity="0.5" />
+            </svg>
+
+            {hoveredSkill ? (
+              <>
+                <StackIcon
+                  name={currentSkills.find(s => s.id === hoveredSkill)?.icon || ''}
+                  variant="grayscale"
+                  style={{
+                    width: '48px',
+                    height: '48px',
+                    filter: theme === 'dark' ? 'invert(1)' : 'none',
+                  }}
+                />
+                <div style={{
+                  marginTop: '1rem',
+                  fontFamily: "'JetBrains Mono', monospace",
+                  fontSize: '0.6rem',
+                  letterSpacing: '0.15em',
+                  color: 'hsl(var(--text-muted))',
+                  textAlign: 'center',
+                }}>
+                  {currentSkills.find(s => s.id === hoveredSkill)?.name.toUpperCase().replace(/\s*\/\s*/g, '_')}
+                </div>
+                <div style={{
+                  fontFamily: "'JetBrains Mono', monospace",
+                  fontSize: '0.5rem',
+                  color: 'hsl(var(--text-muted))',
+                  opacity: 0.5,
+                  marginTop: '0.25rem',
+                }}>
+                  LEVEL: {getDisplayValue(hoveredSkill, currentSkills.find(s => s.id === hoveredSkill)?.level || 0)}%
+                </div>
+              </>
+            ) : (
+              <div style={{
+                fontFamily: "'JetBrains Mono', monospace",
+                fontSize: '0.55rem',
+                letterSpacing: '0.15em',
+                color: 'hsl(var(--text-muted))',
+                opacity: 0.4,
+                textAlign: 'center',
+                lineHeight: 1.8,
+              }}>
+                HOVER_TO<br />INSPECT
+              </div>
+            )}
+          </div>
+        </div>
+
+        {/* Corner markers for entire section */}
+        <svg style={{ position: 'absolute', top: 0, left: 0, width: 20, height: 20, pointerEvents: 'none' }}>
+          <path d="M0 20 L0 0 L20 0" fill="none" stroke="hsl(var(--foreground))" strokeWidth="1" opacity="0.3" />
+        </svg>
+        <svg style={{ position: 'absolute', top: 0, right: 0, width: 20, height: 20, pointerEvents: 'none' }}>
+          <path d="M0 0 L20 0 L20 20" fill="none" stroke="hsl(var(--foreground))" strokeWidth="1" opacity="0.3" />
+        </svg>
+        <svg style={{ position: 'absolute', bottom: 0, left: 0, width: 20, height: 20, pointerEvents: 'none' }}>
+          <path d="M0 0 L0 20 L20 20" fill="none" stroke="hsl(var(--foreground))" strokeWidth="1" opacity="0.3" />
+        </svg>
+        <svg style={{ position: 'absolute', bottom: 0, right: 0, width: 20, height: 20, pointerEvents: 'none' }}>
+          <path d="M20 0 L20 20 L0 20" fill="none" stroke="hsl(var(--foreground))" strokeWidth="1" opacity="0.3" />
+        </svg>
       </div>
     </section>
   )
