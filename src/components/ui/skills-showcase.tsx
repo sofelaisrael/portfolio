@@ -194,24 +194,6 @@ const skillsData = {
   ],
   devops: [
     {
-      id: 'SKL-028',
-      name: 'Easy Deploy',
-      meta: 'One-Click Deploy',
-      tags: ['Hosting', 'Automation', 'CI/CD'],
-      icon: 'easydeploy',
-      color: 'hsl(var(--text-main))',
-      level: 75
-    },
-    {
-      id: 'SKL-029',
-      name: 'GitHub Actions',
-      meta: 'CI/CD Pipeline',
-      tags: ['Automation', 'Workflows', 'Testing'],
-      icon: 'githubactions',
-      color: 'hsl(var(--text-main))',
-      level: 70
-    },
-    {
       id: 'SKL-006',
       name: 'Docker',
       meta: 'Containerization',
@@ -425,7 +407,7 @@ export function SkillsShowcase({ setCursorHovered }: SkillsShowcaseProps) {
           flexWrap: 'wrap',
           gap: '1rem',
           marginBottom: '1.5rem',
-          padding: '0.75rem 0',
+          padding: '1.5rem 1.25rem',
           borderBottom: '1px solid hsl(var(--border))',
         }}>
           <div style={{
@@ -438,16 +420,15 @@ export function SkillsShowcase({ setCursorHovered }: SkillsShowcaseProps) {
             <div>ARCHIVE: SKILL_MATRIX</div>
             <div>SERIE 2 / NO. 096</div>
           </div>
-          <div style={{
+          <div className="md:text-rigt" style={{
             fontFamily: "'JetBrains Mono', monospace",
             fontSize: '0.65rem',
             letterSpacing: '0.15em',
             color: 'hsl(var(--text-muted))',
             lineHeight: 1.8,
-            textAlign: 'right',
           }}>
             <div>COMPILER_READY: <span style={{ color: 'hsl(var(--foreground))' }}>TRUE</span></div>
-            <div>CLOCK_SPEED: <span style={{ color: 'hsl(var(--foreground))' }}>4.2GHZ</span></div>
+            <div className="md:text-left">CLOCK_SPEED: <span style={{ color: 'hsl(var(--foreground))' }}>4.2GHZ</span></div>
           </div>
         </div>
 
@@ -496,7 +477,7 @@ export function SkillsShowcase({ setCursorHovered }: SkillsShowcaseProps) {
         </div>
 
         {/* Main content: skill list + viz box */}
-        <div className="skills-main-grid">
+        <div className="skills-main-grid py-5">
           {/* Skill list */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: '0' }}>
             {currentSkills.map((skill) => (
@@ -515,8 +496,6 @@ export function SkillsShowcase({ setCursorHovered }: SkillsShowcaseProps) {
                   padding: '0.75rem 0.5rem',
                   borderBottom: '1px solid hsl(var(--border) / 0.3)',
                   cursor: 'none',
-                  backgroundColor: hoveredSkill === skill.id ? 'hsl(var(--foreground) / 0.04)' : 'transparent',
-                  transition: 'background-color 0.2s ease',
                 }}
               >
                 <div className="skill-row-id" style={{
@@ -529,25 +508,13 @@ export function SkillsShowcase({ setCursorHovered }: SkillsShowcaseProps) {
                 </div>
 
                 <div style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '0.75rem',
+                  fontFamily: "'JetBrains Mono', monospace",
+                  fontSize: '0.8rem',
+                  fontWeight: 600,
+                  color: 'hsl(var(--foreground))',
+                  letterSpacing: '0.02em',
                 }}>
-                  <StackIcon name={skill.icon} variant="grayscale"
-                    style={{
-                      width: '20px',
-                      height: '20px',
-                      filter: theme === 'dark' ? 'invert(1)' : 'none',
-                    }} />
-                  <span style={{
-                    fontFamily: "'JetBrains Mono', monospace",
-                    fontSize: '0.8rem',
-                    fontWeight: 600,
-                    color: 'hsl(var(--foreground))',
-                    letterSpacing: '0.02em',
-                  }}>
-                    {skill.name}
-                  </span>
+                  {skill.name}
                 </div>
 
                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
@@ -563,7 +530,6 @@ export function SkillsShowcase({ setCursorHovered }: SkillsShowcaseProps) {
                       backgroundColor: 'hsl(var(--foreground))',
                       width: `${skill.level}%`,
                       transition: 'width 0.8s cubic-bezier(0.16, 1, 0.3, 1)',
-                      boxShadow: hoveredSkill === skill.id ? '0 0 6px hsl(var(--foreground) / 0.5)' : 'none',
                     }} />
                   </div>
                   <span style={{
@@ -588,7 +554,6 @@ export function SkillsShowcase({ setCursorHovered }: SkillsShowcaseProps) {
             alignItems: 'center',
             justifyContent: 'center',
             transition: 'all 0.3s cubic-bezier(0.16, 1, 0.3, 1)',
-            backgroundColor: hoveredSkill ? 'hsl(var(--foreground) / 0.02)' : 'transparent',
           }}>
             {/* Corner markers */}
             <svg style={{ position: 'absolute', top: -1, left: -1, width: 16, height: 16, pointerEvents: 'none' }}>
