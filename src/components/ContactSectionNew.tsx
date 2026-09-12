@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import { BracketBox } from '@/components/ui/bracket-box';
+import BlockText from '@/components/TextShuffle';
 
 interface ContactSectionNewProps {
   formData: { name: string; email: string; message: string };
@@ -82,7 +83,7 @@ const ContactSectionNew: React.FC<ContactSectionNewProps> = ({
     >
       <div className="grid grid-cols-12 gap-x-2vw max-md:flex max-md:flex-col">
         <div className="text-mono col-span-3 md:sticky top-10 h-[fit-content] self-start">
-          [ CONTACT / CONNECT ]
+          <BlockText>[ CONTACT / CONNECT ]</BlockText>
         </div>
         <div className="col-span-9">
           <div

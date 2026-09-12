@@ -1,5 +1,6 @@
 import React from 'react';
 import { SkillsShowcase } from '@/components/ui/skills-showcase';
+import BlockText from '@/components/TextShuffle';
 
 interface SkillsSectionProps {
   isVisible: (id: string) => boolean;
@@ -32,7 +33,7 @@ const SkillsSection: React.FC<SkillsSectionProps> = ({
             alignSelf: 'start',
           }}
         >
-          [ CAPABILITIES / STACK ]
+          <BlockText>[ CAPABILITIES / STACK ]</BlockText>
         </div>
 
         <div className='max-md:pt-5' style={{ gridColumn: '4 / -1', position: 'relative' }}>

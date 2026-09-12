@@ -4,6 +4,7 @@ import emailjs from '@emailjs/browser';
 import { useCustomCursor } from '../hooks/useCustomCursor';
 import { useLenis } from '../hooks/useLenis';
 import '../index.css';
+import BlockText from '@/components/TextShuffle';
 import HeaderSection from '../components/HeaderSection';
 import WorksSection from '../components/WorksSection';
 import ExperienceSection from '../components/ExperienceSection';
@@ -281,8 +282,12 @@ const Index = () => {
               transition: 'all 1s cubic-bezier(0.16, 1, 0.3, 1) 1s',
             }}
           >
-            <h1 className="text-huge max-md:text-[14vw]">Engineering</h1>
-            <h1 className="text-huge max-md:text-[14vw]">Digital Form.</h1>
+            <h1 className="text-huge max-md:text-[14vw]">
+              <BlockText as="span">Engineering</BlockText>
+            </h1>
+            <h1 className="text-huge max-md:text-[14vw]">
+              <BlockText as="span">Digital Form.</BlockText>
+            </h1>
           </div>
 
           <WorksSection
@@ -306,32 +311,32 @@ const Index = () => {
                   transform: isVisible('about') ? 'translateY(0)' : 'translateY(20px)',
                 }}
               >
-                [ ABOUT / IDENTITY ]
+                <BlockText>[ ABOUT / IDENTITY ]</BlockText>
               </div>
               <div className="md:col-span-9">
 
                 <div id="about-titles" data-reveal-late>
                   <div className="overflow-hidden">
-                    <div className="text-[clamp(18vw,19vw,20vw)] md:text-[clamp(1vw,10vw,12vw)] font-black tracking-tight leading-none uppercase text-void transition-all duration-1000 ease-section delay-200"
+                    <BlockText 
+                      as="div"
+                      className="text-[clamp(18vw,19vw,20vw)] md:text-[clamp(1vw,10vw,12vw)] font-black tracking-tight leading-none uppercase text-void transition-all duration-1000 ease-section delay-200"
                       style={{
                         fontFamily: "'Inter', -apple-system, sans-serif",
                         opacity: isVisible('about-titles') ? 1 : 0,
                         transform: isVisible('about-titles') ? 'translateX(0)' : 'translateX(-100%)',
                       }}
-                    >
-                      Israel
-                    </div>
+                    >Israel</BlockText>
                   </div>
                   <div className="overflow-hidden mb-10 max-md:mb-3">
-                    <div className="text-[clamp(18vw,19vw,20vw)] md:text-[clamp(1vw,10vw,12vw)] font-black tracking-tight leading-none uppercase text-void text-right transition-all duration-1000 ease-section delay-400"
+                    <BlockText 
+                      as="div"
+                      className="text-[clamp(18vw,19vw,20vw)] md:text-[clamp(1vw,10vw,12vw)] font-black tracking-tight leading-none uppercase text-void text-right transition-all duration-1000 ease-section delay-400"
                       style={{
                         fontFamily: "'Inter', -apple-system, sans-serif",
                         opacity: isVisible('about-titles') ? 1 : 0,
                         transform: isVisible('about-titles') ? 'translateX(0)' : 'translateX(100%)',
                       }}
-                    >
-                      Sofela
-                    </div>
+                    >Sofela</BlockText>
                   </div>
                 </div>
 

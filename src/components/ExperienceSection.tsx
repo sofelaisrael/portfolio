@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import BlockText from '@/components/TextShuffle';
 
 interface Experience {
   company: string;
@@ -230,7 +231,7 @@ const ExperienceSection: React.FC<ExperienceSectionProps> = ({
             transition: "all 0.6s cubic-bezier(0.16, 1, 0.3, 1)",
           }}
         >
-          [ EXPERIENCE / CAPABILITIES ]
+          <BlockText>[ EXPERIENCE / CAPABILITIES ]</BlockText>
         </div>
 
         {/* Main content */}

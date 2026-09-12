@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from 'react';
+import BlockText from '@/components/TextShuffle';
 
 interface TestimonialsSectionProps {
   isVisible: (id: string) => boolean;
@@ -190,7 +191,7 @@ const TestimonialsSection: React.FC<TestimonialsSectionProps> = ({ isVisible, sc
             transform: isVisible('testimonials') ? 'translateY(0)' : 'translateY(20px)',
           }}
         >
-          [ TESTIMONIALS / PRAISE ]
+          <BlockText>[ TESTIMONIALS / PRAISE ]</BlockText>
         </div>
 
         <div className={"relative col-span-9 max-md:mt-10 " + (isVisible('testimonials') ? 'section-visible' : '')} style={{ width: '100%' }}>

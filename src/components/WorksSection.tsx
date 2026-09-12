@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import BlockText from '@/components/TextShuffle';
 
 interface Project {
   id: string;
@@ -39,7 +40,7 @@ const WorksSection: React.FC<WorksSectionProps> = ({
             transition: 'all 0.8s cubic-bezier(0.16, 1, 0.3, 1) 1.2s',
           }}
         >
-          [ INDEX / SELECTED WORKS ]
+          <BlockText>[ INDEX / SELECTED WORKS ]</BlockText>
         </div>
 
         <ul className="max-md:px-0" style={{ gridColumn: '4 / -1', listStyle: 'none', borderTop: '1px solid hsl(var(--border-color))' }}>

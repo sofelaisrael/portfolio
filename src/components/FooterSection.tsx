@@ -1,5 +1,4 @@
 import React from 'react';
-import { Download } from 'lucide-react';
 import ThemeToggle from '@/components/ThemeToggle';
 import resume from '@/assets/resume.pdf';
 import { useFooterReveal } from '@/hooks/useFooterReveal';
@@ -67,20 +66,6 @@ const FooterSection: React.FC<FooterSectionProps> = ({ scrollTo, setCursorHovere
           </span>
           <div className="flex items-center max-md:flex-col max-md:items-end gap-4">
             <ThemeToggle setCursorHovered={setCursorHovered} />
-            <a
-              href={resume}
-              target="_blank"
-              rel="noopener noreferrer"
-              onMouseEnter={() => setCursorHovered(true)}
-              onMouseLeave={() => setCursorHovered(false)}
-              className="interactive-link max-md:text-[14px]"
-              style={{
-                display: 'flex', alignItems: 'center', gap: 6,
-                textDecoration: 'none', color: 'inherit', cursor: 'none',
-              }}
-            >
-              <Download size={14} /> RESUME
-            </a>
             <span
               className="interactive-link max-md:text-[28px] max-md:self-end"
               onMouseEnter={() => setCursorHovered(true)}
