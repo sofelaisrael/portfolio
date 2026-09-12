@@ -43,6 +43,8 @@ const GateOverlay: React.FC<GateOverlayProps> = ({
         }}>
 
           <div
+            tabIndex={0}
+            role="button"
             style={{
               display: 'flex', gap: 2, cursor: 'none',
               opacity: gatePhase === 'idle' ? 1 : 0,
@@ -54,6 +56,13 @@ const GateOverlay: React.FC<GateOverlayProps> = ({
             onClick={() => {
               setCursorHovered(false)
               handleUnlock()
+            }}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                setCursorHovered(false);
+                handleUnlock();
+              }
             }}
           >
             {nameChars.map((char, i) => (
@@ -81,10 +90,19 @@ const GateOverlay: React.FC<GateOverlayProps> = ({
 
 
           <div
+            tabIndex={0}
+            role="button"
             style={{ cursor: 'none' }}
             onClick={() => {
               setCursorHovered(false)
               handleUnlock()
+            }}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                setCursorHovered(false);
+                handleUnlock();
+              }
             }}
             onMouseEnter={() => { handleKeyMouseEnter(); setCursorHovered(true); }}
             onMouseLeave={() => { handleKeyMouseLeave(); setCursorHovered(false); }}

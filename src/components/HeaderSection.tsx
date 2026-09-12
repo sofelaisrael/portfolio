@@ -30,8 +30,9 @@ const HeaderSection: React.FC<HeaderSectionProps> = ({ appState, timeStr, setCur
   useEffect(() => {
     if (statsReady && !hasAnimated.current) {
       hasAnimated.current = true;
+      let frameId: number;
 
-      setTimeout(() => {
+      const timeoutId = setTimeout(() => {
         const duration = 2000;
         const startTime = Date.now();
         const startValues = { projects: 0, experience: 0, contributions: 0 };
@@ -48,12 +49,17 @@ const HeaderSection: React.FC<HeaderSectionProps> = ({ appState, timeStr, setCur
           });
 
           if (progress < 1) {
-            requestAnimationFrame(animate);
+            frameId = requestAnimationFrame(animate);
           }
         };
 
-        requestAnimationFrame(animate);
+        frameId = requestAnimationFrame(animate);
       }, 1000);
+
+      return () => {
+        clearTimeout(timeoutId);
+        cancelAnimationFrame(frameId);
+      };
     }
   }, [statsReady]);
 
@@ -62,10 +68,6 @@ const HeaderSection: React.FC<HeaderSectionProps> = ({ appState, timeStr, setCur
     { label: 'Commits', key: 'contributions' },
     { label: 'Years Experience', key: 'experience' },
   ];
-
-  if (!statsReady) {
-    animatedValues;
-  }
 
   return (
     <>

@@ -5,10 +5,15 @@ export function useFooterReveal() {
   const cleanupRef = useRef<(() => void) | null>(null);
 
   useEffect(() => {
+    let cancelled = false;
+    let cleanupFn: (() => void) | null = null;
+
     const loadGSAP = async () => {
       try {
         const gsap = await import('gsap');
         const ScrollTrigger = await import('gsap/dist/ScrollTrigger');
+
+        if (cancelled) return;
 
         gsap.default.registerPlugin(ScrollTrigger.default);
 
@@ -53,17 +58,19 @@ export function useFooterReveal() {
           },
         });
 
-        cleanupRef.current = () => {
+        cleanupFn = () => {
           ScrollTrigger.default.getAll().forEach(trigger => trigger.kill());
         };
+        cleanupRef.current = cleanupFn;
       } catch {
-        console.warn('GSAP not available, animation disabled');
+        // GSAP not available — cleanup is a no-op
       }
     };
 
     loadGSAP();
 
     return () => {
+      cancelled = true;
       cleanupRef.current?.();
     };
   }, []);

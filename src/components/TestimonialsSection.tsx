@@ -110,13 +110,16 @@ const TestimonialsSection: React.FC<TestimonialsSectionProps> = ({ isVisible, sc
   }, []);
 
   useEffect(() => {
-    let ctx: any;
+    let cancelled = false;
+    let ctx: any = null;
 
     const initGsap = async () => {
       const gsapModule = await import('gsap');
       const gsap = gsapModule.default;
       const ScrollTrigger = (await import('gsap/dist/ScrollTrigger')).default;
       const SplitText = (await import('gsap/dist/SplitText')).default;
+
+      if (cancelled) return;
 
       gsap.registerPlugin(ScrollTrigger, SplitText);
 
@@ -153,6 +156,7 @@ const TestimonialsSection: React.FC<TestimonialsSectionProps> = ({ isVisible, sc
     initGsap();
 
     return () => {
+      cancelled = true;
       ctx?.revert();
     };
   }, []);

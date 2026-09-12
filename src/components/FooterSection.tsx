@@ -1,6 +1,5 @@
 import React from 'react';
 import { Download } from 'lucide-react';
-import coffee from '@/assets/icons/coffee-icon.svg'
 import ThemeToggle from '@/components/ThemeToggle';
 import resume from '@/assets/resume.pdf';
 import { useFooterReveal } from '@/hooks/useFooterReveal';

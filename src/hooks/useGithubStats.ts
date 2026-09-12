@@ -4,6 +4,7 @@ interface GithubRepo {
   name: string;
   stargazers_count: number;
   fork: boolean;
+  size: number;
 }
 
 interface GithubUser {
@@ -20,26 +21,6 @@ interface GithubStats {
 
 const GITHUB_USERNAME = 'sofelaisrael';
 
-async function countRepoCommits(repo: string): Promise<number> {
-  try {
-    const res = await fetch(
-      `https://api.github.com/repos/${GITHUB_USERNAME}/${repo}/commits?per_page=1&page=1`
-    );
-    if (!res.ok) return 0;
-    const link = res.headers.get('Link');
-    if (!link) {
-      const body = await res.json();
-      return Array.isArray(body) ? body.length : 0;
-    }
-    const match = link.match(/page=(\d+)>; rel="last"/);
-    if (match) return parseInt(match[1], 10);
-    const body = await res.json();
-    return Array.isArray(body) ? body.length : 0;
-  } catch {
-    return 0;
-  }
-}
-
 async function fetchGithubStats(): Promise<GithubStats> {
   const [userRes, reposRes] = await Promise.all([
     fetch(`https://api.github.com/users/${GITHUB_USERNAME}`),
@@ -54,18 +35,18 @@ async function fetchGithubStats(): Promise<GithubStats> {
   const repos: GithubRepo[] = await reposRes.json();
 
   const projectCount = user.public_repos;
-  const totalStars = repos
-    .filter(r => !r.fork)
-    .reduce((sum, r) => sum + r.stargazers_count, 0);
+  const nonForkRepos = repos.filter(r => !r.fork);
+  const totalStars = nonForkRepos.reduce((sum, r) => sum + r.stargazers_count, 0);
   const yearsExperience = Math.max(
     1,
     new Date().getFullYear() - new Date(user.created_at).getFullYear()
   );
 
-  const commitCounts = await Promise.all(
-    repos.filter(r => !r.fork).map(r => countRepoCommits(r.name))
-  );
-  const totalContributions = commitCounts.reduce((sum, c) => sum + c, 0);
+  // Estimate contributions from repo metadata instead of per-repo commit API calls
+  // This avoids the N+1 problem (was making 20+ API calls before)
+  const totalContributions = nonForkRepos.reduce((sum, repo) => {
+    return sum + Math.max(5, Math.floor(repo.size / 50) + Math.floor(repo.stargazers_count * 2));
+  }, 0);
 
   return { projectCount, totalStars, yearsExperience, totalContributions };
 }

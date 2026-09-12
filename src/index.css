@@ -101,7 +101,6 @@
   
   * {
     @apply border-border;
-    cursor: none !important;
   }
 
   body {
@@ -168,8 +167,11 @@
 }
 
 
-* {
-  cursor: none !important;
+/* Hide native cursor only on devices that support hover */
+@media (hover: hover) and (pointer: fine) {
+  * {
+    cursor: none !important;
+  }
 }
 
 
